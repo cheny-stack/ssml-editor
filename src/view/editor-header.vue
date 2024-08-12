@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ElButton, ElDialog, ElMessage } from 'element-plus'
-import { computed, inject, ref, useSlots } from 'vue'
+import { computed, inject, type Ref, ref, useSlots } from 'vue'
 import xmlFormat from 'xml-formatter'
 import { serializeToSSML } from '@/serialize'
 import { useEditorStore, useSSMLStore } from '@/stores'
 import { PlayTag } from '@/components'
 import { exportRaw } from '@/utils'
 import dayjs from 'dayjs'
+import { useTryPlayStore } from '@/stores'
+import { getConfig } from '@/config'
 
 withDefaults(defineProps<{ showSsmlButton?: boolean }>(), { showSsmlButton: true })
 
@@ -17,6 +19,9 @@ const ssml = ref('')
 const { rootBackgroundaudio } = useSSMLStore()
 const editorStore = useEditorStore()
 const editorKey = inject<symbol>('editorKey')!
+const tryPlayStore = useTryPlayStore()
+const { audioPlayer, play } = tryPlayStore
+const ssmlEditorConfig = getConfig(editorKey)
 
 const ssmlFormat = computed(() => {
   return xmlFormat(ssml.value, {
@@ -41,6 +46,11 @@ function handleShowSSML() {
   dialogVisible.value = true
 }
 
+async function handleTextToSpeech() {
+  ssml.value = serializeToSSML()
+  await play(ssmlEditorConfig.tryPlay.play)
+}
+
 function handleCopySSML() {
   ssml.value = serializeToSSML()
   handleCopy(false)
@@ -51,10 +61,29 @@ function handleCloseBgm() {
   rootBackgroundaudio.remark = ''
 }
 
+async function handleSaveToLocal() {
+  ssml.value = serializeToSSML()
+  const audioUrl = localStorage.getItem('audioUrl')
+  if (ssml.value && audioUrl && audioUrl) {
+    const textToSpeechData = {
+      ssml: ssml.value,
+      audioUrl: audioUrl,
+    }
+    localStorage.setItem('textToSpeechEditorSaveData', JSON.stringify(textToSpeechData))
+    ElMessage.success({ message: '保存成功!', grouping: true })
+  } else {
+    console.log('ssml.value', ssml.value)
+    console.log('audioUrl', audioUrl)
+    ElMessage.error({ message: '保存失败!', grouping: true })
+  }
+}
+
 async function handleSave() {
   const editor = editorStore.editor
   if (editor) {
     try {
+      console.log('editorKey', editorKey)
+      console.log('editor.getHtml', editor.getHtml)
       await editorStore.saveEditorHtml(editorKey, editor.getHtml, false)
       ElMessage.success({ message: '保存成功!', grouping: true })
     } catch (error) {
@@ -86,7 +115,7 @@ async function handleCopy(isFormat: boolean) {
 <template>
   <div class="editor-header d-flex flex-row align-item-center justify-content-between">
     <div class="title-wrapper d-flex flex-column justify-content-center ps-3">
-      <div class="pb-1"><slot name="title">SSML编辑器</slot></div>
+      <div class="pb-1"><slot name="title">语音编辑器</slot></div>
       <div class="author d-flex flex-row align-items-center justify-content-start">
         <div>{{ saveStateFormat }}</div>
         <PlayTag
@@ -100,11 +129,14 @@ async function handleCopy(isFormat: boolean) {
     </div>
     <div class="operation-wrapper d-flex flex-row justify-content-center align-items-center">
       <template v-if="showSsmlButton">
-        <ElButton type="primary" @click="handleSave">保存到浏览器</ElButton>
-        <ElButton type="primary" @click="handleExport">导出文件(.txt)</ElButton>
-        <div class="menu-divider"></div>
-        <ElButton type="warning" @click="handleCopySSML">复制 SSML</ElButton>
-        <ElButton type="warning" @click="handleShowSSML">显示 SSML</ElButton>
+        <!--        <ElButton type="primary" @click="handleSave">保存到浏览器</ElButton>-->
+        <!--        <ElButton type="primary" @click="handleExport">导出文件(.txt)</ElButton>-->
+        <!--        -->
+        <!--        <div class="menu-divider"></div>-->
+        <!--        <ElButton type="warning" @click="handleCopySSML">复制 SSML</ElButton>-->
+        <!--        <ElButton type="warning" @click="handleShowSSML">显示 SSML</ElButton>-->
+        <ElButton type="warning" @click="handleTextToSpeech">生成语音</ElButton>
+        <ElButton type="primary" @click="handleSaveToLocal">保存</ElButton>
         <div v-if="slots.menus" class="menu-divider"></div>
       </template>
       <slot name="menus"></slot>

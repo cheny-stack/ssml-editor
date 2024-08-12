@@ -1,15 +1,15 @@
 export default [
-  {
-    name: 'zh-CN-XiaoxuanNeural',
-    gender: 'Female',
-    locale: 'zh-CN',
-    localeZH: '中文(普通话，简体)',
-    LocalName: '晓萱',
-    DisplayName: 'Xiaoxuan',
-    VoiceRoleNames:
-      'YoungAdultFemale,YoungAdultMale,OlderAdultFemale,OlderAdultMale,SeniorFemale,SeniorMale,Girl,Boy,Default',
-    VoiceStyleNames: 'calm,fearful,cheerful,disgruntled,serious,angry,gentle,depressed,Default',
-  },
+  // {
+  //   name: 'zh-CN-XiaoxuanNeural',
+  //   gender: 'Female',
+  //   locale: 'zh-CN',
+  //   localeZH: '中文(普通话，简体)',
+  //   LocalName: '晓萱',
+  //   DisplayName: 'Xiaoxuan',
+  //   VoiceRoleNames:
+  //     'YoungAdultFemale,YoungAdultMale,OlderAdultFemale,OlderAdultMale,SeniorFemale,SeniorMale,Girl,Boy,Default',
+  //   VoiceStyleNames: 'calm,fearful,cheerful,disgruntled,serious,angry,gentle,depressed,Default',
+  // },
   {
     name: 'zh-CN-XiaochenNeural',
     gender: 'Female',

@@ -3,10 +3,19 @@ import '../mock'
 import type { FilterSpeaker, LabelValue, Speaker } from '@/model'
 import type { FilterBarSearch } from '@/components/bar-search'
 import type { CancellationToken } from '@/utils'
+import { sleep } from '@/utils'
 import type { AudioInfo } from '@/menu/conversion-menu/data'
 import type { RecentUsageSpeaker } from '@/menu/management-menu/data'
-import { sleep } from '@/utils'
 import { html } from '../mock/ssml'
+
+axios.defaults.baseURL = 'http://localhost:8083/cli-student/api'
+// 从 URL 参数中获取 Authorization 值
+const urlParams = new URLSearchParams(window.location.search)
+const authorizationToken = urlParams.get('tkn')
+// 配置 axios headers
+if (authorizationToken) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authorizationToken}`
+}
 
 export async function english(word: string): Promise<LabelValue[]> {
   const resp = await axios.get('/english', { params: { word } })
@@ -76,7 +85,8 @@ export async function conversionSpeaker(): Promise<Speaker[]> {
 
 export async function play(ssmlGetter: () => string): Promise<AudioInfo> {
   const ssml = ssmlGetter()
-  const resp = await axios.post('/play', { ssml })
+  console.log('ssml:', ssml)
+  const resp = await axios.post('/word/textToSpeech', { ssml })
   return resp.data
 }
 

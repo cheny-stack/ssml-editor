@@ -119,6 +119,7 @@ function serializeSub(node: Sub, children: string) {
 }
 
 function serializeVoice(node: Voice, children: string) {
+  if (!node.name) return ''
   const effect = node.effect ? ` effect="${node.effect}"` : ''
   return `<voice name="${node.name}${effect}">${children}</voice>`
 }

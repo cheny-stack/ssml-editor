@@ -12,9 +12,12 @@ interface EmitterEventMap {
   error: [error: unknown]
   'view-click': [event: MouseEvent]
   'view-keydown': [event: KeyboardEvent]
+  'show-loading': []
+  'hide-loading': []
   'editor-created': [editor: IDomEditor]
   'tryplay-speaker-select': [speaker: Speaker]
   'tryplay-speaker-update-star': [speakerId: string, isStar: boolean]
+  'text-to-speech-ok': [src: string]
   'tryplay-speaker-detail-show': [speaker: DeepReadonly<UnwrapNestedRefs<Speaker>>]
 }
 

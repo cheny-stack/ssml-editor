@@ -41,29 +41,59 @@ export const useTryPlayStore = defineStore('--editor-try-play', () => {
     emitter.emit('tryplay-speaker-update-star', _speaker.value.id, resIsStar)
   }
 
+  // async function play(fetchAudio: (ssmlGetter: () => string) => Promise<AudioInfo>) {
+  //   if (isLoading.value) {
+  //     _isLoading.value = false
+  //     audioPlayer.value.cancel()
+  //     return
+  //   }
+  //   if (audioPlayer.value.playState.value === 'playing') {
+  //     audioPlayer.value.pause()
+  //     return
+  //   }
+  //   try {
+  //     _isLoading.value = true
+  //     const audio = await fetchAudio(serializeToSSML)
+  //     await audioPlayer.value.load(audio.src)
+  //     await sleep(200)
+  //     if (isLoading.value) {
+  //       _isLoading.value = false
+  //       audioPlayer.value.play()
+  //     }
+  //   } catch (error) {
+  //     emitter.emit('error', error)
+  //   } finally {
+  //     _isLoading.value = false
+  //   }
+  // }
   async function play(fetchAudio: (ssmlGetter: () => string) => Promise<AudioInfo>) {
+    emitter.emit('show-loading')
     if (isLoading.value) {
       _isLoading.value = false
-      audioPlayer.value.cancel()
+      // audioPlayer.value.cancel()
       return
     }
-    if (audioPlayer.value.playState.value === 'playing') {
-      audioPlayer.value.pause()
-      return
-    }
+    // if (audioPlayer.value.playState.value === 'playing') {
+    //   audioPlayer.value.pause()
+    //   return
+    // }
     try {
       _isLoading.value = true
       const audio = await fetchAudio(serializeToSSML)
-      await audioPlayer.value.load(audio.src)
+      // await audioPlayer.value.load(audio.src)
+      emitter.emit('text-to-speech-ok', audio.src)
+      emitter.emit('hide-loading')
       await sleep(200)
       if (isLoading.value) {
         _isLoading.value = false
-        audioPlayer.value.play()
+        // emitter.emit('tryplay-audio-info', audio)
+        // audioPlayer.value.play()
       }
     } catch (error) {
       emitter.emit('error', error)
     } finally {
       _isLoading.value = false
+      emitter.emit('hide-loading')
     }
   }
 

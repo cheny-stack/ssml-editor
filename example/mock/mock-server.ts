@@ -144,6 +144,7 @@ mock.onGet('/conversionSpeaker').reply(() => {
   )
   return [200, data]
 })
+mock.onPost('/word/textToSpeech').passThrough()
 
 mock.onPost('/play').reply(() => {
   const audio = DataSource.audio.find((v) => v.label === 'creativeminds') || DataSource.audio[0]
@@ -158,46 +159,46 @@ mock.onPost('/recentUsage').reply((config) => {
 
 mock.onGet('/recentUsage').reply(() => {
   const data = <RecentUsageSpeaker[]>[
-    {
-      id: '1',
-      category: '',
-      label: '晓萱|年轻成年女性|冷静|1.0x',
-      name: 'zh-CN-XiaoxuanNeural',
-      pitch: '0',
-      role: 'YoungAdultFemale',
-      speed: '1.0',
-      style: 'calm',
-    },
-    {
-      id: '2',
-      category: '',
-      label: '晓萱|年轻成年女性|冷静|1.0x',
-      name: 'zh-CN-XiaoxuanNeural',
-      pitch: '0',
-      role: 'YoungAdultFemale',
-      speed: '1.0',
-      style: 'calm',
-    },
-    {
-      id: '3',
-      category: '',
-      label: '晓萱|年轻成年女性|冷静|1.0x',
-      name: 'zh-CN-XiaoxuanNeural',
-      pitch: '0',
-      role: 'YoungAdultFemale',
-      speed: '1.0',
-      style: 'calm',
-    },
-    {
-      id: '4',
-      category: '',
-      label: '晓萱|年轻成年女性|冷静|1.0x',
-      name: 'zh-CN-XiaoxuanNeural',
-      pitch: '0',
-      role: 'YoungAdultFemale',
-      speed: '1.0',
-      style: 'calm',
-    },
+    // {
+    //   id: '1',
+    //   category: '',
+    //   label: '晓萱|年轻成年女性|冷静|1.0x',
+    //   name: 'zh-CN-XiaoxuanNeural',
+    //   pitch: '0',
+    //   role: 'YoungAdultFemale',
+    //   speed: '1.0',
+    //   style: 'calm',
+    // },
+    // {
+    //   id: '2',
+    //   category: '',
+    //   label: '晓萱|年轻成年女性|冷静|1.0x',
+    //   name: 'zh-CN-XiaoxuanNeural',
+    //   pitch: '0',
+    //   role: 'YoungAdultFemale',
+    //   speed: '1.0',
+    //   style: 'calm',
+    // },
+    // {
+    //   id: '3',
+    //   category: '',
+    //   label: '晓萱|年轻成年女性|冷静|1.0x',
+    //   name: 'zh-CN-XiaoxuanNeural',
+    //   pitch: '0',
+    //   role: 'YoungAdultFemale',
+    //   speed: '1.0',
+    //   style: 'calm',
+    // },
+    // {
+    //   id: '4',
+    //   category: '',
+    //   label: '晓萱|年轻成年女性|冷静|1.0x',
+    //   name: 'zh-CN-XiaoxuanNeural',
+    //   pitch: '0',
+    //   role: 'YoungAdultFemale',
+    //   speed: '1.0',
+    //   style: 'calm',
+    // },
   ]
   return [200, data]
 })

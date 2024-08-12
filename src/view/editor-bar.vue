@@ -23,7 +23,7 @@ import {
   <div class="editor-bar border-bottom">
     <BarWrapper>
       <BarWrapperMenus>
-        <PlayMenu></PlayMenu>
+        <!--        <PlayMenu></PlayMenu>-->
       </BarWrapperMenus>
       <BarWrapperMenus>
         <PinyinMenu></PinyinMenu>
@@ -42,13 +42,13 @@ import {
         <RhythmMenu></RhythmMenu>
         <MuteMenu></MuteMenu>
       </BarWrapperMenus>
-      <BarWrapperMenus>
-        <SpecialMenu></SpecialMenu>
-        <BgmMenu></BgmMenu>
-      </BarWrapperMenus>
+      <!--      <BarWrapperMenus>-->
+      <!--        <SpecialMenu></SpecialMenu>-->
+      <!--        <BgmMenu></BgmMenu>-->
+      <!--      </BarWrapperMenus>-->
     </BarWrapper>
   </div>
-  <TryPlay></TryPlay>
+  <!--  <TryPlay></TryPlay>-->
 </template>
 
 <style lang="scss" scoped></style>
