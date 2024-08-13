@@ -1,5 +1,5 @@
 {
-  "name": "@mekumiao/ssml-editor",
+  "name": "@cheny33/ssml-editor",
   "version": "2.0.9",
   "private": false,
   "description": "基于wangeditor实现的支持SSML语法的编辑器",
@@ -8,13 +8,13 @@
     "editor",
     "编辑器"
   ],
-  "homepage": "https://github.com/mekumiao/ssml-editor/",
+  "homepage": "https://github.com/cheny-stack/ssml-editor/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mekumiao/ssml-editor.git"
+    "url": "git+https://github.com/cheny-stack/ssml-editor.git"
   },
   "license": "Apache-2.0",
-  "author": "mekumiao <btguigushi@qq.com>",
+  "author": "cheny <478959472@qq.com>",
   "type": "module",
   "exports": {
     ".": {

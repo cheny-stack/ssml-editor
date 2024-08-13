@@ -10,7 +10,8 @@ export default function (): UserConfig {
       dts({
         compilerOptions: { noUnusedLocals: false },
         exclude: [
-          // 'example/**',
+          'editor-demo/**',
+          'example/**',
           'node_modules/**',
           'vite.config.ts',
           'vite.config.dev.ts',
