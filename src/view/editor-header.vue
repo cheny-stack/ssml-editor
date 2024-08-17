@@ -61,22 +61,28 @@ function handleCloseBgm() {
   rootBackgroundaudio.remark = ''
 }
 
-async function handleSaveToLocal() {
+function saveSSMLToLocal() {
   ssml.value = serializeToSSML()
-  const audioUrl = localStorage.getItem('audioUrl')
-  if (ssml.value && audioUrl && audioUrl) {
-    const textToSpeechData = {
-      ssml: ssml.value,
-      audioUrl: audioUrl,
-    }
-    localStorage.setItem('textToSpeechEditorSaveData', JSON.stringify(textToSpeechData))
-    ElMessage.success({ message: '保存成功!', grouping: true })
+  localStorage.setItem('editor-ssml', ssml.value)
+}
+
+async function handleSaveToLocal() {
+  await handleSave();
+  saveSSMLToLocal();
+  const audioUrl = localStorage.getItem('editor-audio-url')
+  const editorHtml =localStorage.getItem('editor-html')
+  const editorSsml =localStorage.getItem('editor-ssml')
+  if (editorSsml && audioUrl && audioUrl) {
+  localStorage.setItem('editor-data-save', String(1))
+  ElMessage.success({ message: '保存成功!', grouping: true })
   } else {
-    console.log('ssml.value', ssml.value)
+    console.log('ssml', editorSsml)
     console.log('audioUrl', audioUrl)
+    console.log('editorHtml', editorHtml)
     ElMessage.error({ message: '保存失败!', grouping: true })
   }
 }
+
 
 async function handleSave() {
   const editor = editorStore.editor

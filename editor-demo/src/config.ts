@@ -5,17 +5,19 @@ import { fetchRecentUsage, deleteRecentUsage, recordRecentUsage } from './api'
 import { ElMessage, ElNotification } from 'element-plus'
 import type { Speaker } from '@cheny33/ssml-editor'
 import { emitter } from '@cheny33/ssml-editor'
-import { h } from 'vue'
+import { VNode,h } from 'vue'
 import { defaultAvatar } from '@cheny33/ssml-editor'
 
 emitter.on('tryplay-speaker-detail-show', (speaker) => {
+  const messageContent: VNode = h('div', [
+    h('img', { src: speaker.avatar || defaultAvatar(), height: 60, width: 60 }),
+    h('h4', [h('span', 'ID: '), h('span', speaker.name)]),
+    h('h4', [h('span', '名称: '), h('span', speaker.displayName)]),
+  ])
+
   ElNotification.info({
     title: '配音师详情',
-    message: h('div', [
-      h('img', { src: speaker.avatar || defaultAvatar(), height: 60, width: 60 }),
-      h('h4', [h('span', 'ID: '), h('span', speaker.name)]),
-      h('h4', [h('span', '名称: '), h('span', speaker.displayName)]),
-    ]),
+    message: messageContent as unknown as string, // Type assertion
   })
 })
 

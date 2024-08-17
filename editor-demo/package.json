@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@cheny33/ssml-editor": "^2.0.9",
+    "@cheny33/ssml-editor": "^2.0.10",
     "@wangeditor/editor": "^5.1.23",
     "vue": "^3.4.35"
   },

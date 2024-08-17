@@ -21,6 +21,7 @@ export default function (): UserConfig {
       }),
     ],
     build: {
+      outDir: './editor-demo/libs/@cheny33/ssml-editor/dist', // 修改输出目录
       lib: {
         entry: 'src/index.ts',
         name: 'SSMLEditor',

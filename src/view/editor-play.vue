@@ -14,7 +14,7 @@ const audioRef = ref<HTMLAudioElement | null>(null)
 // Create a method to play the audio
 async function playAudio(src: string) {
   audioUrl.value = src
-  localStorage.setItem('audioUrl', audioUrl.value)
+  localStorage.setItem('editor-audio-url', audioUrl.value)
   if (audioRef.value) {
     audioRef.value.load() // Ensure the new source is loaded
     await sleep(300) // Wait for the source to load
