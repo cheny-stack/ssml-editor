@@ -11,7 +11,10 @@ import { html } from '../mock/ssml'
 axios.defaults.baseURL = 'http://localhost:8083/cli-student/api'
 // 从 URL 参数中获取 Authorization 值
 const urlParams = new URLSearchParams(window.location.search)
-const authorizationToken = urlParams.get('tkn')
+let authorizationToken = urlParams.get('tkn')
+if (!authorizationToken) {
+  authorizationToken = sessionStorage.getItem('auth-token')
+}
 // 配置 axios headers
 if (authorizationToken) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${authorizationToken}`

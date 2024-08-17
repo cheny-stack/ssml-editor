@@ -73,7 +73,9 @@ async function handleSaveToLocal() {
   const editorHtml =localStorage.getItem('editor-html')
   const editorSsml =localStorage.getItem('editor-ssml')
   if (editorSsml && audioUrl && audioUrl) {
-  localStorage.setItem('editor-data-save', String(1))
+    //获取当前时间戳字符串
+    const timestamp = String(Date.now())
+  localStorage.setItem('editor-data-save', timestamp)
   ElMessage.success({ message: '保存成功!', grouping: true })
   } else {
     console.log('ssml', editorSsml)
